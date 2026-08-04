@@ -35,25 +35,6 @@ public:
 
 
 
-class Solution {
-public:
-    int dfs(int i, int j) {
-        vector<vector<int>> memo(n, vector<int>(m, -1));
-        if (i == n) return m - j;
-        if (j == m) return n - i;
-        if (w1[i] == w2[j]) return dfs(i+1, j+1);
-        int deletecost = dfs(i+1, j);
-        int insertcost = dfs(i, j+1);
-        int replacecost = dfs(i+1, j+1);
-        return 1 + min(dfs(i, j+1), dfs(i+1, j), dfs(i+1, j+1));
-    }
-    int minDistance(string word1, string word2) {
-        int n = word1.size();
-        int m = word2.size();
-        return dfs(0,0);
-    }
-};
-
 // 一、递归搜索 + 保存计算结果 = 记忆化搜索
 class Solution {
 public:
