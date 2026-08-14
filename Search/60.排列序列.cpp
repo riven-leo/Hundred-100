@@ -10,20 +10,45 @@ using namespace std;
 class Solution {
 public:
     string getPermutation(int n, int k) {
-        unordered_map<int, string> v;
-        for (int i = 1; i <= n; i++) v[i] = "i";
-        auto dfs = [&](this auto&& dfs, int i, int k) -> string {
-            if (v.size() == 1) {
-                k--;
-                return v[0]; 
-            }
-            v.erase(i);
-            string ts = "i";
-            for (auto x: v) { 
-                ts += dfs(x.first);
-            }
-            return ts;
+        vector<int> factorial(n + 1);
+        factorial[0] = 1;
 
+        for (int i = 1; i <= n; i++) {
+            factorial[i] = factorial[i - 1] * i;
+        }
+
+        vector<bool> used(n + 1, false);
+        string path;
+
+        auto dfs = [&](this auto&& dfs, int index, int k) -> void {
+            if (index == n) {
+                return;
+            }
+
+            // 当前选择一个数字后，剩余数字的全排列数量
+            int count = factorial[n - 1 - index];
+
+            for (int i = 1; i <= n; i++) {
+                if (used[i]) {
+                    continue;
+                }
+
+                // 第 k 个排列不在这一组，直接跳过整组
+                if (count < k) {
+                    k -= count;
+                    continue;
+                }
+
+                path += to_string(i);
+                used[i] = true;
+
+                dfs(index + 1, k);
+                return;
+            }
         };
+
+        dfs(0, k);
+
+        return path;
     }
 };
