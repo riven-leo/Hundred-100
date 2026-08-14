@@ -6,6 +6,10 @@ BPSO
 种子不变，生成的随机数序列相同，方便调试
 random.seed(42)
 
+
+list(x) 是“把 x 的元素拿出来，创建一个新列表”；
+[x] 是“创建一个列表，并把整个 x 当成一个元素放进去”。
+
 pbest_pos = list(X) # 复制一个新列表内容和X相同
 gbest_pos = list(X[pbest_val.index(max(pbest_val))]) # index()查找某个值第一次出现的位置
 list(X[i]) 是复制当前位置。不能只写：
@@ -29,6 +33,20 @@ V[i][d] = max(-6.0, min(6.0, V[i][d]))
 
 再取个随机数和速度概率比较，如果概率>随机数，x=1, 否则x=0;
 保证随机性，防止陷入局部最优
+
+
+解决01背包问题
+Version 1
+不 repair
+fitness 超重 -> 0
+
+Version 2
+不 repair
+fitness 超重 -> penalty
+
+Version 3
+repair
+fitness 默认只评价合法解
 
 
 资料：
