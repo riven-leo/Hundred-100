@@ -4,7 +4,7 @@
 using namespace std;
 
 
-// 二、1:1 翻译成递推
+// 递推
 class Solution {
 public:
     int minDistance(string w1, string w2) {
@@ -35,13 +35,14 @@ public:
 
 
 
-// 一、递归搜索 + 保存计算结果 = 记忆化搜索
+// 记忆化递归搜索
 class Solution {
 public:
     int minDistance(string w1, string w2) {
         int n = w1.size();
         int m = w2.size();
         vector<vector<int>> memo(n, vector<int>(m, -1));
+
         auto dfs = [&](this auto&& dfs, int i, int j) -> int {
             if (i == n) return m - j;
             if (j == m) return n - i;
@@ -54,6 +55,7 @@ public:
 
             return memo[i][j] = 1 + min({dfs(i, j+1), dfs(i+1, j), dfs(i+1, j+1)});
         };
+
         return dfs(0,0);
     }
 };
