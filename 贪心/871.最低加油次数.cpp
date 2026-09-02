@@ -4,6 +4,9 @@
 #include <vector>
 using namespace std;
 
+// 下面展示了学习的进步阶段
+// 下一步√√√：优化变量名，使遍历名和含义对应上
+
 class Solution {
 public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
@@ -34,6 +37,34 @@ public:
             curFuel = fuel_heap.top();
             fuel_heap.pop();
             ans++;
+        }
+    }
+};
+
+class Solution {
+public:
+    int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations){
+        /*循环：
+            用掉所有油
+            如果到达终点则返回加油次数
+            将经过的加油站放入heap中，按油量大小降序
+            如果heap里没有油了返回-1
+            使用油量最大的一站，加油次数+1
+            # 用过的加油站pop out
+            */
+        priority_queue<int> h;
+        int cnt = 0;
+        int i = 0;
+        while (true) {
+            int cur = startFuel;
+            if (cur >= target) return cnt;
+            for (;i < stations.size() && stations[i][0] <= cur; i++) {
+                h.push(stations[i][1]);
+            }
+            if (h.empty()) return -1;
+            startFuel += h.top();
+            h.pop();
+            cnt++;
         }
     }
 };
