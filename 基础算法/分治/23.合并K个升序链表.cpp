@@ -1,15 +1,4 @@
-#include <algorithm>
-#include <vector>
-using namespace std;
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-
+// √看懂答案 √√理解思想、能分析复杂度、看到题能写出伪代码 √√√能实现C++代码
 
 class Solution {
 public:
@@ -42,13 +31,19 @@ public:
 
     
     ListNode* merge(vector<ListNode*>& lists, int l, int r) {
+        /*两个递归出口是和"分"密切相关的*/
         // 只剩一个链表
         if (l == r) return lists[l];
 
         // 为了处理特殊情况，当给的lists是空的时候，l=0,r=-1
         if (l > r) return nullptr;
 
-        int mid = (l + r) >> 1;
+        /*分：[l,mid], [mid+1,r]
+          治：递归把左边若干链表合并成一个，把右边若干链表合并成一个
+          合：调用 mergeTwolist() 把这两个结果再合并*/
+        int mid = (l + r) >> 1; 
+        // 奇数取中间，偶数取平分后左边最后一个
+        // c++/2操作向0取整, (0,4)mid=2这有5个数,2是第3个数, (0,5)mid=2这有6个数
         return mergeTwolist(merge(lists, l, mid), merge(lists, mid + 1, r));
     }
 

@@ -81,6 +81,7 @@ class BPSO:
                 selected.append(i)
 
         while weight > self.capacity:
+            # 选择性删除一个物品，删除的策略是：价值/重量比最小的物品
             worst = min(selected, key=lambda i: self.values[i] / self.weights[i])
 
             x[worst] = 0
