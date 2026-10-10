@@ -13,8 +13,10 @@ vector<int> dijkstra(
 ) {
     int n = graph.size();
 
+    // dist[i] 表示从 start 到 i 的最短距离
     vector<int> dist(n, INT_MAX);
 
+    // 小根堆，存储 {距离, 节点}
     priority_queue<
         PII,
         vector<PII>,
